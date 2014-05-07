@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="googleFinancialPeriods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="period_Number" Type="int" Nullable="false" />
+          <Property Name="start_Date" Type="datetime" Nullable="false" />
+          <Property Name="end_Date" Type="datetime" Nullable="false" />
+          <Property Name="days" Type="int" Nullable="false" />
+          <Property Name="completed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="googleMetrics">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="metric_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="metric_Source" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="metric_Value_One" Type="nvarchar(max)" />
+          <Property Name="metric_Value_Two" Type="nvarchar(max)" />
+          <Property Name="metric_Formula" Type="nvarchar(max)" />
+          <Property Name="metric_GoogleQuery" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="googleResults">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="websiteID" Type="int" Nullable="false" />
+          <Property Name="metricID" Type="int" Nullable="false" />
+          <Property Name="periodID" Type="int" Nullable="false" />
+          <Property Name="value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="googleWebsites">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="google_AccountID" Type="int" Nullable="false" />
+          <Property Name="google_AccountName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="google_ProfileID" Type="int" Nullable="false" />
+          <Property Name="google_ViewName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="website_Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="twitter_Url" Type="nvarchar(max)" />
+          <Property Name="twitter_ScreenName" Type="nvarchar(max)" />
+          <Property Name="facebook_Url" Type="nvarchar(max)" />
+          <Property Name="facebook_ScreenName" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_googleResults_googleFinancialPeriods">
+          <End Role="googleFinancialPeriods" Type="Self.googleFinancialPeriods" Multiplicity="1" />
+          <End Role="googleResults" Type="Self.googleResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="googleFinancialPeriods">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="googleResults">
+              <PropertyRef Name="periodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_googleResults_googleMetrics">
+          <End Role="googleMetrics" Type="Self.googleMetrics" Multiplicity="1" />
+          <End Role="googleResults" Type="Self.googleResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="googleMetrics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="googleResults">
+              <PropertyRef Name="metricID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_googleResults_googleWebsites">
+          <End Role="googleWebsites" Type="Self.googleWebsites" Multiplicity="1" />
+          <End Role="googleResults" Type="Self.googleResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="googleWebsites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="googleResults">
+              <PropertyRef Name="websiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbContextStoreContainer">
+          <EntitySet Name="googleFinancialPeriods" EntityType="Self.googleFinancialPeriods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="googleMetrics" EntityType="Self.googleMetrics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="googleResults" EntityType="Self.googleResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="googleWebsites" EntityType="Self.googleWebsites" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_googleResults_googleFinancialPeriods" Association="Self.FK_googleResults_googleFinancialPeriods">
+            <End Role="googleFinancialPeriods" EntitySet="googleFinancialPeriods" />
+            <End Role="googleResults" EntitySet="googleResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_googleResults_googleMetrics" Association="Self.FK_googleResults_googleMetrics">
+            <End Role="googleMetrics" EntitySet="googleMetrics" />
+            <End Role="googleResults" EntitySet="googleResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_googleResults_googleWebsites" Association="Self.FK_googleResults_googleWebsites">
+            <End Role="googleWebsites" EntitySet="googleWebsites" />
+            <End Role="googleResults" EntitySet="googleResults" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbContext" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="dbContextContainer" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="googleFinancialPeriods" EntityType="dbContext.googleFinancialPeriods" />
+          <EntitySet Name="googleMetrics" EntityType="dbContext.googleMetrics" />
+          <EntitySet Name="googleResults" EntityType="dbContext.googleResults" />
+          <EntitySet Name="googleWebsites" EntityType="dbContext.googleWebsites" />
+          <AssociationSet Name="FK_googleResults_googleFinancialPeriods" Association="dbContext.FK_googleResults_googleFinancialPeriods">
+            <End Role="googleFinancialPeriods" EntitySet="googleFinancialPeriods" />
+            <End Role="googleResults" EntitySet="googleResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_googleResults_googleMetrics" Association="dbContext.FK_googleResults_googleMetrics">
+            <End Role="googleMetrics" EntitySet="googleMetrics" />
+            <End Role="googleResults" EntitySet="googleResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_googleResults_googleWebsites" Association="dbContext.FK_googleResults_googleWebsites">
+            <End Role="googleWebsites" EntitySet="googleWebsites" />
+            <End Role="googleResults" EntitySet="googleResults" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="googleFinancialPeriods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="period_Number" Type="Int32" Nullable="false" />
+          <Property Name="start_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="days" Type="Int32" Nullable="false" />
+          <Property Name="completed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="googleResults" Relationship="dbContext.FK_googleResults_googleFinancialPeriods" FromRole="googleFinancialPeriods" ToRole="googleResults" />
+        </EntityType>
+        <EntityType Name="googleMetrics">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="metric_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="metric_Source" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="metric_Value_One" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="metric_Value_Two" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="metric_Formula" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="googleResults" Relationship="dbContext.FK_googleResults_googleMetrics" FromRole="googleMetrics" ToRole="googleResults" />
+          <Property Name="metric_GoogleQuery" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="googleResults">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="websiteID" Type="Int32" Nullable="false" />
+          <Property Name="metricID" Type="Int32" Nullable="false" />
+          <Property Name="periodID" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="googleFinancialPeriods" Relationship="dbContext.FK_googleResults_googleFinancialPeriods" FromRole="googleResults" ToRole="googleFinancialPeriods" />
+          <NavigationProperty Name="googleMetrics" Relationship="dbContext.FK_googleResults_googleMetrics" FromRole="googleResults" ToRole="googleMetrics" />
+          <NavigationProperty Name="googleWebsites" Relationship="dbContext.FK_googleResults_googleWebsites" FromRole="googleResults" ToRole="googleWebsites" />
+        </EntityType>
+        <EntityType Name="googleWebsites">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="google_AccountID" Type="Int32" Nullable="false" />
+          <Property Name="google_AccountName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="google_ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="google_ViewName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="website_Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="googleResults" Relationship="dbContext.FK_googleResults_googleWebsites" FromRole="googleWebsites" ToRole="googleResults" />
+          <Property Name="twitter_Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="twitter_ScreenName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="facebook_Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="facebook_ScreenName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_googleResults_googleFinancialPeriods">
+          <End Type="dbContext.googleFinancialPeriods" Role="googleFinancialPeriods" Multiplicity="1" />
+          <End Type="dbContext.googleResults" Role="googleResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="googleFinancialPeriods">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="googleResults">
+              <PropertyRef Name="periodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_googleResults_googleMetrics">
+          <End Type="dbContext.googleMetrics" Role="googleMetrics" Multiplicity="1" />
+          <End Type="dbContext.googleResults" Role="googleResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="googleMetrics">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="googleResults">
+              <PropertyRef Name="metricID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_googleResults_googleWebsites">
+          <End Type="dbContext.googleWebsites" Role="googleWebsites" Multiplicity="1" />
+          <End Type="dbContext.googleResults" Role="googleResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="googleWebsites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="googleResults">
+              <PropertyRef Name="websiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <Alias Key="Model" Value="dbContext" />
+        <Alias Key="Target" Value="dbContext.Store" />
+        <EntityContainerMapping CdmEntityContainer="dbContextContainer" StorageEntityContainer="dbContextStoreContainer">
+          <EntitySetMapping Name="googleFinancialPeriods">
+            <EntityTypeMapping TypeName="dbContext.googleFinancialPeriods">
+              <MappingFragment StoreEntitySet="googleFinancialPeriods">
+                <ScalarProperty Name="completed" ColumnName="completed" />
+                <ScalarProperty Name="days" ColumnName="days" />
+                <ScalarProperty Name="end_Date" ColumnName="end_Date" />
+                <ScalarProperty Name="start_Date" ColumnName="start_Date" />
+                <ScalarProperty Name="period_Number" ColumnName="period_Number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="googleMetrics">
+            <EntityTypeMapping TypeName="dbContext.googleMetrics">
+              <MappingFragment StoreEntitySet="googleMetrics">
+                <ScalarProperty Name="metric_GoogleQuery" ColumnName="metric_GoogleQuery" />
+                <ScalarProperty Name="metric_Formula" ColumnName="metric_Formula" />
+                <ScalarProperty Name="metric_Value_Two" ColumnName="metric_Value_Two" />
+                <ScalarProperty Name="metric_Value_One" ColumnName="metric_Value_One" />
+                <ScalarProperty Name="metric_Source" ColumnName="metric_Source" />
+                <ScalarProperty Name="metric_Name" ColumnName="metric_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="googleResults">
+            <EntityTypeMapping TypeName="dbContext.googleResults">
+              <MappingFragment StoreEntitySet="googleResults">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="periodID" ColumnName="periodID" />
+                <ScalarProperty Name="metricID" ColumnName="metricID" />
+                <ScalarProperty Name="websiteID" ColumnName="websiteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="googleWebsites">
+            <EntityTypeMapping TypeName="dbContext.googleWebsites">
+              <MappingFragment StoreEntitySet="googleWebsites">
+                <ScalarProperty Name="facebook_ScreenName" ColumnName="facebook_ScreenName" />
+                <ScalarProperty Name="facebook_Url" ColumnName="facebook_Url" />
+                <ScalarProperty Name="twitter_ScreenName" ColumnName="twitter_ScreenName" />
+                <ScalarProperty Name="twitter_Url" ColumnName="twitter_Url" />
+                <ScalarProperty Name="website_Url" ColumnName="website_Url" />
+                <ScalarProperty Name="google_ViewName" ColumnName="google_ViewName" />
+                <ScalarProperty Name="google_ProfileID" ColumnName="google_ProfileID" />
+                <ScalarProperty Name="google_AccountName" ColumnName="google_AccountName" />
+                <ScalarProperty Name="google_AccountID" ColumnName="google_AccountID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="False" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

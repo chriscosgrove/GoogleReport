@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <Alias Key="Model" Value="dbContext" />
+  <Alias Key="Target" Value="dbContext.Store" />
+  <EntityContainerMapping CdmEntityContainer="dbContextContainer" StorageEntityContainer="dbContextStoreContainer">
+    <EntitySetMapping Name="googleFinancialPeriods">
+      <EntityTypeMapping TypeName="dbContext.googleFinancialPeriods">
+        <MappingFragment StoreEntitySet="googleFinancialPeriods">
+          <ScalarProperty Name="completed" ColumnName="completed" />
+          <ScalarProperty Name="days" ColumnName="days" />
+          <ScalarProperty Name="end_Date" ColumnName="end_Date" />
+          <ScalarProperty Name="start_Date" ColumnName="start_Date" />
+          <ScalarProperty Name="period_Number" ColumnName="period_Number" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="googleMetrics">
+      <EntityTypeMapping TypeName="dbContext.googleMetrics">
+        <MappingFragment StoreEntitySet="googleMetrics">
+          <ScalarProperty Name="metric_GoogleQuery" ColumnName="metric_GoogleQuery" />
+          <ScalarProperty Name="metric_Formula" ColumnName="metric_Formula" />
+          <ScalarProperty Name="metric_Value_Two" ColumnName="metric_Value_Two" />
+          <ScalarProperty Name="metric_Value_One" ColumnName="metric_Value_One" />
+          <ScalarProperty Name="metric_Source" ColumnName="metric_Source" />
+          <ScalarProperty Name="metric_Name" ColumnName="metric_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="googleResults">
+      <EntityTypeMapping TypeName="dbContext.googleResults">
+        <MappingFragment StoreEntitySet="googleResults">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="periodID" ColumnName="periodID" />
+          <ScalarProperty Name="metricID" ColumnName="metricID" />
+          <ScalarProperty Name="websiteID" ColumnName="websiteID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="googleWebsites">
+      <EntityTypeMapping TypeName="dbContext.googleWebsites">
+        <MappingFragment StoreEntitySet="googleWebsites">
+          <ScalarProperty Name="facebook_ScreenName" ColumnName="facebook_ScreenName" />
+          <ScalarProperty Name="facebook_Url" ColumnName="facebook_Url" />
+          <ScalarProperty Name="twitter_ScreenName" ColumnName="twitter_ScreenName" />
+          <ScalarProperty Name="twitter_Url" ColumnName="twitter_Url" />
+          <ScalarProperty Name="website_Url" ColumnName="website_Url" />
+          <ScalarProperty Name="google_ViewName" ColumnName="google_ViewName" />
+          <ScalarProperty Name="google_ProfileID" ColumnName="google_ProfileID" />
+          <ScalarProperty Name="google_AccountName" ColumnName="google_AccountName" />
+          <ScalarProperty Name="google_AccountID" ColumnName="google_AccountID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

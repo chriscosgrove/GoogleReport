@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a0e6ba42270b49f6aa8880f669d00d59" Name="Diagram1" >
+        <EntityTypeShape EntityType="dbContext.googleFinancialPeriods" Width="1.5" PointX="1.375" PointY="3.75" />
+        <EntityTypeShape EntityType="dbContext.googleMetrics" Width="1.5" PointX="9.25" PointY="2.625" />
+        <EntityTypeShape EntityType="dbContext.googleResults" Width="1.5" PointX="4.75" PointY="0.875" FillColor="Red" />
+        <EntityTypeShape EntityType="dbContext.googleWebsites" Width="1.5" PointX="4.875" PointY="4" />
+        <AssociationConnector Association="dbContext.FK_googleResults_googleFinancialPeriods" />
+        <AssociationConnector Association="dbContext.FK_googleResults_googleMetrics" />
+        <AssociationConnector Association="dbContext.FK_googleResults_googleWebsites" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
